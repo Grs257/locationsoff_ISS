@@ -34,7 +34,7 @@
             maxZoom: 19,
             attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
         }).addTo(map);
-        const api_url = 'https://api.wheretheiss.at/v1/satellites/25544/positions?timestamps=1436029892,1436029902&units=miles';
+        const api_url = 'https://api.wheretheiss.at/v1/satellites/25544';
         let first_try = true;
 
         async function getISS() {
@@ -55,7 +55,7 @@
 
         setInterval(getISS, 100);
     </script>
-    <script src="scripts.js"></script>
+     
 </body>
 
 </html>
