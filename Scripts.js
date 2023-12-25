@@ -1,4 +1,4 @@
-<script>
+/*<script>
         const map = L.map('mymap').setView([1, 2], 2);
         const myIcon = L.icon({
             iconUrl: 'ISS_sat.png',
@@ -29,3 +29,4 @@
 
         setInterval(getISS, 100);
     </script>
+*/
