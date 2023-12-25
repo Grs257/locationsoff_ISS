@@ -14,7 +14,7 @@
 </head>
 
 <body>
-    <h1>Welcome! You are watching the real-time location of ISS</h1>
+    <h1>Welcome you are watching the current location of ISS</h1>
 
     <h3>Latitude</h3>
     <div id="lat"></div>
@@ -23,7 +23,7 @@
     <div id="mymap"></div>
 
     <script>
-        const map = L.map('mymap').setView([0, 0], 2);
+        const map = L.map('mymap').setView([1, 2], 2);
         const myIcon = L.icon({
             iconUrl: 'ISS_sat.png',
             iconSize: [50, 32],
@@ -35,24 +35,27 @@
             attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
         }).addTo(map);
         const api_url = 'https://api.wheretheiss.at/v1/satellites/25544';
+        let first_try = true;
 
         async function getISS() {
-            try {
-                const response = await fetch(api_url);
-                const data = await response.json();
-                console.log(data);
-                const { latitude, longitude } = data;
-                marker.setLatLng([latitude, longitude]);
-                map.setView([latitude, longitude], map.getZoom());
-                document.getElementById("lat").textContent = latitude;
-                document.getElementById("lon").textContent = longitude;
-            } catch (error) {
-                console.error('Error fetching ISS data:', error);
+            const response = await fetch(api_url);
+            const data = await response.json();
+            console.log(data);
+            const { latitude, longitude } = data;
+            marker.setLatLng([latitude, longitude]);
+            if (first_try) {
+                map.setView([latitude, longitude], 2);
+                first_try = false;
             }
+            document.getElementById("lat").textContent = latitude;
+            document.getElementById("lon").textContent = longitude;
         }
 
-        setInterval(getISS, 1000);
+        getISS();
+
+        setInterval(getISS, 100);
     </script>
+    <script src="scripts.js"></script>
 </body>
 
 </html>
